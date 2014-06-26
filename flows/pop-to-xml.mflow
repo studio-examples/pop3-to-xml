@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="pop-to-xml">
+    <global-element name="POP3" type="http://www.mulesoft.org/schema/mule/pop3s/connector" entity-id="POP3#1">
+        <properties>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="deleteReadMessages"/>
+            <property name="mailboxFolder"/>
+            <property name="backupEnabled"/>
+            <property name="name" value="POP3"/>
+            <property name="backupFolder"/>
+            <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/pop3s/connector"/>
+            <property name="validateConnections" value="true"/>
+            <property name="checkFrequency" value="500"/>
+            <property name="dynamicNotification"/>
+            <property name="defaultProcessMessageAction"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="moveToFolder"/>
+        </properties>
+    </global-element>
+    <global-element name="Property Placeholder" type="http://www.springframework.org/schema/context/property-placeholder" entity-id="Property Placeholder#1">
+        <properties>
+            <property name="properties-ref"/>
+            <property name="order"/>
+            <property name="location" value="common.properties"/>
+            <property name="local-override"/>
+            <property name="system-properties-mode"/>
+            <property name="file-encoding"/>
+            <property name="ignore-resource-not-found"/>
+            <property name="ignore-unresolvable"/>
+            <property name="auxiliary;index" value="2"/>
+        </properties>
+    </global-element>
+    <global-element name="CSV_To_XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="!!!b4186a0a-5985-4f53-b718-5bd278e7a854">
+        <properties>
+            <property name="doc:description" value="CSV To XML"/>
+            <property name="name" value="CSV_To_XML"/>
+            <property name="doc:name" value="CSV_To_XML"/>
+            <property name="transformationGraphPath" value="csv_to_xml_2.grf"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="pop-to-xmlFlow1" type="http://www.mulesoft.org/schema/mule/core/flow" entity-id="fd9773d7-7103-4419-b91e-8ea4452f5212">
+        <properties>
+            <property name="initialState"/>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property name="auxiliary;index" value="3"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" name="POP3" type="http://www.mulesoft.org/schema/mule/pop3s/endpoint" entity-id="POP3#2">
+                <graphicalData x="21" y="215" width="68" height="69"/>
+                <properties>
+                    <property name="port" value="${pop3.port}"/>
+                    <property name="host" value="${pop3.host}"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/pop3s/endpoint"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password" value="${pop3.password}"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="user" value="${pop3.user}"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="connector-ref" value="POP3"/>
+                </properties>
+            </endpoint>
+            <pattern name="Expression" type="http://www.mulesoft.org/schema/mule/core/expression-transformer" entity-id="Expression#1">
+                <graphicalData x="149" y="215" width="69" height="69"/>
+                <properties>
+                    <property name="expression"/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="returnSourceIfNull"/>
+                    <property name="name" value="returnAttachments"/>
+                    <property name="encoding"/>
+                    <property name="custom-evaluator"/>
+                    <property name="evaluator"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/return-argument;0">
+                        <property name="expression" value="*"/>
+                        <property name="evaluator" value="attachments-list"/>
+                        <property name="auxiliary;wrapIn" value="6"/>
+                        <property name="auxiliary;index" value="6"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern name="Set Payload" type="http://www.mulesoft.org/schema/mule/core/set-payload" entity-id="Set Payload#1">
+                <graphicalData x="278" y="215" width="75" height="69"/>
+                <properties>
+                    <property name="value" value="#[payload[0].getContent()]"/>
+                    <property name="auxiliary;index" value="7"/>
+                </properties>
+            </pattern>
+            <pattern name="CSV To XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="a1bef272-939e-48e9-909e-4bc5c4fcea3b">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="input-ref" value="#[payload]"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
+                    <property name="target" value="#[payload]"/>
+                    <property name="config-ref" value="CSV_To_XML"/>
+                </properties>
+            </pattern>
+            <pattern name="Byte Array to String" type="http://www.mulesoft.org/schema/mule/core/byte-array-to-string-transformer" entity-id="Byte Array to String#1">
+                <graphicalData x="413" y="207" width="82" height="84"/>
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="8"/>
+                </properties>
+            </pattern>
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#1">
+                <graphicalData x="555" y="215" width="68" height="69"/>
+                <properties>
+                    <property name="message" value="recieved: #[payload]"/>
+                    <property name="category"/>
+                    <property name="level" value="INFO"/>
+                    <property name="auxiliary;index" value="9"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+</mule-configuration>
