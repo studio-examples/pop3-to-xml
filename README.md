@@ -29,10 +29,10 @@ In this example a CSV file containing sample sales data which has been received 
 
 5. If you have configured and run this example correctly, the csv file should appear in the xml format in the studio console. The log message should be similar to what is show below:
 
-        INFO  2014-07-07 16:49:09,973 [[pop3-to-xml-master].POP3.receiver.01] org.mule.api.security.tls.TlsPropertiesMapper:         Defaulting mule.email.pop3s trust store to client Key Store
-        WARN  2014-07-07 16:49:09,988 [[pop3-to-xml-master].POP3.receiver.01] org.mule.api.security.tls.TlsProperties: File         tls-default.conf not found, using default configuration.
-        INFO  2014-07-07 16:49:10,706 [[pop3-to-xml-master].pop-to-xmlFlow1.stage1.02]       
-        org.mule.api.processor.LoggerMessageProcessor: recieved: <?xml version="1.0" encoding="UTF-8"?>                   
+ INFO  2014-07-07 16:49:09,973 [[pop3-to-xml-master].POP3.receiver.01] org.mule.api.security.tls.TlsPropertiesMapper:        Defaulting mule.email.pop3s trust store to client Key Store
+ WARN  2014-07-07 16:49:09,988 [[pop3-to-xml-master].POP3.receiver.01] org.mule.api.security.tls.TlsProperties: File         tls-default.conf not found, using default configuration.
+ INFO  2014-07-07 16:49:10,706 [[pop3-to-xml-master].pop-to-xmlFlow1.stage1.02]       
+ org.mule.api.processor.LoggerMessageProcessor: recieved: <?xml version="1.0" encoding="UTF-8"?>                   
         < orders>
         < order>
         < orderId>1< /orderId>
