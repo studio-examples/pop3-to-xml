@@ -19,12 +19,12 @@ In this example a CSV file containing sample sales data which has been received 
 
            pop3.host=pop.gmail.com
            pop3.port=995
-           pop3.user=senderemailaddress%40gmail.com
-           pop3.password=sender_password
+           pop3.user=receiveremailaddress%40gmail.com
+           pop3.password=receiver_password
     
 3. **Run** the project as a Mule application
 
-4. Navigate to src/main/resources and use any email address to **send the 'input.csv' file as an attachement**  to senderemailaddress%40gmail.com
+4. Navigate to src/main/resources and use any email address to **send the 'input.csv' file as an attachement**  to receiveremailaddress@gmail.com
 
 
 5. If you have configured and run this example correctly, the csv file should appear in the xml format in the studio console. The log message should be similar to what is show below:
