@@ -1,4 +1,4 @@
-# Importing an attached csv file from gmail using the POP3 connector
+# Importing an attached csv file using the POP3 connector
 
 
 This example shows you how to use the POP3 connector to facilitate information transfer through email. It also illustrates how you can use the datamapper to transform a CSV file to XML.
